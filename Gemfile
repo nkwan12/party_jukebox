@@ -58,3 +58,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Use HTTParty for HTTP requests
 gem 'httparty'
+gem 'rest-client'

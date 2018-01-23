@@ -1,1 +1,29 @@
-<%= @results %>
+<div class="uk-container songs">
+  <div class="uk-text-center" uk-grid>
+    <% @tracks.each do |track| %>
+      <div class="uk-width-1-1 uk-width-1-3@m">
+        <div class="uk-card uk-card-default">
+          <div class="uk-card-header">
+            <h4 class="uk-card-title"><%= track["name"] %></h4><!-- .uk-card-body -->
+          </div>
+          <div class="uk-card-body">
+            <% img = track["album"]["images"].select { |i| i["width"] == i["height"] }.first %>
+            <%= image_tag img && img["url"] || "http://via.placeholder.com/300x300", height: "150px", width: "150px" %>
+          </div><!-- .uk-card-body -->
+          <div class="uk-card-footer">
+            <h5><%= track["artists"][0]["name"] %></h5>
+            <hr>
+            <%= form_tag songs_enqueue_path, class: "enqueue-form" do %>
+              <%= hidden_field_tag "track_id", track["id"] %>
+              <%= hidden_field_tag "track_name", track["name"] %>
+              <%= hidden_field_tag "track_uri", track["uri"] %>
+              <%= button_tag class: "uk-button uk-button-primary", data: { "uk-confirm" => "Add to queue?" } do %>
+                <i class="fa fa-plus uk-margin-small-right"></i> Add to Queue
+              <% end %>
+            <% end %>
+          </div><!-- .uk-card-footer -->
+        </div><!-- .uk-card -->
+      </div>
+    <% end %>
+  </div><!-- .uk-grid-match uk-child-width-expands@s -->
+</div><!-- .uk-container -->

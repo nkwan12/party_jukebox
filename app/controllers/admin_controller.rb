@@ -17,7 +17,8 @@ class AdminController < ApplicationController
   end
 
   def start_party
-    Rails.cache.write("spotify_playlist_id", params[:playlist_id])
+    playlist_id = params[:playlist_uri].scan(/[^:]*$/)[0]
+    Rails.cache.write("spotify_playlist_id", playlist_id)
 
     flash[:success] = "Party Started!!"
     redirect_to admin_path

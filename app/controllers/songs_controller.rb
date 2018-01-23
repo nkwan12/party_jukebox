@@ -6,9 +6,18 @@ class SongsController < ApplicationController
 
   def search
     @results = Spotify::Track.search(params[:query])
+    @tracks = @results["tracks"]["items"]
   end
 
   def enqueue
+    track_index = @tracks.map {|t| t["id"]}.index(params[:track_id])
+    if track_index && (track_index < @current_index || track_index > @queue_index)
+      r = Spotify::Playlist.reorder(@playlist_id, track_index, @queue_index)
+    else
+      r = Spotify::Playlist.add(@playlist_id, params[:track_uri], @queue_index)
+    end
+
+    flash[:success] = "#{params[:track_name]} added to queue!"
   end
 
   private

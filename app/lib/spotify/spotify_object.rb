@@ -10,11 +10,12 @@ module Spotify
       puts "REQUEST OPTIONS: #{ opts }"
       puts "REQUEST URL: #{ api_url(path) }"
       if response.code == 401
+        puts "Access token expired. Re-authorizing."
         Spotify.authorize
         opts[:headers]["Authorization"] ||= "Bearer #{Spotify.access_token}"
         response = HTTParty.send(method, api_url(path), opts)
       end
-      puts "RESPONSE: #{ response }"
+      puts "PARSED RESPONSE: #{ response.parsed_response }"
       puts "RESPONSE CODE: #{ response.code }"
       puts "SPOTIFY RESPONSE BODY: #{ response.body }"
       return JSON.parse(response.body)

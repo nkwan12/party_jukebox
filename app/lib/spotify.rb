@@ -34,25 +34,31 @@ module Spotify
   end
 
   def self.authorize(auth_code = nil)
+    creds = Base64.encode64("#{client_id}:#{client_secret}").gsub("\n", "")
+    headers = {
+      "Authorization" => "Bearer #{creds}"
+    }
     if !auth_code && refresh_token
+      puts "Reauthorizing from refresh token."
       body = {
         grant_type: "refresh_token",
-        refresh_token: "refresh_token",
-        client_id: client_id,
-        client_secret: client_secret
+        refresh_token: refresh_token
       }
-    else
+    elsif auth_code
       body = {
         code: auth_code,
         redirect_uri: redirect_uri,
-        grant_type: "authorization_code",
-        client_id: client_id,
-        client_secret: client_secret
+        grant_type: "authorization_code"
       }
+    else
+      raise AuthenticationError, "Must have either code or refresh token."
     end
+    puts "Authorization body: #{ body }"
+    puts "Authorization headers: #{ headers }"
     res = HTTParty.post("https://accounts.spotify.com/api/token",
-                        body: body, format: :json)
+                        body: body, headers: headers, format: :json)
     response_body = JSON.parse(res.body)
+    puts "IN AUTHORIZE, RESPONSE BODY: #{ response_body }"
     self.access_token = response_body["access_token"]
     self.refresh_token = response_body["refresh_token"]
     return true
