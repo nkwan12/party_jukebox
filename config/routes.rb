@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   end
   scope "/songs" do
     get "/", to: "songs#index", as: :songs
+    get :search, to: "songs#search", as: :songs_search
   end
 end

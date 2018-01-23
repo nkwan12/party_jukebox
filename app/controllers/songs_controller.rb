@@ -1,10 +1,11 @@
 class SongsController < ApplicationController
-  before_action :set_currents
+  before_action :set_currents, except: [:search]
 
   def index
   end
 
   def search
+    @results = Spotify::Track.search(params[:query])
   end
 
   def enqueue
