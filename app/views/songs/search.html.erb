@@ -17,6 +17,7 @@
               <%= hidden_field_tag "track_id", track["id"] %>
               <%= hidden_field_tag "track_name", track["name"] %>
               <%= hidden_field_tag "track_uri", track["uri"] %>
+              <%= hidden_field_tag "query", @query %>
               <%= button_tag class: "uk-button uk-button-primary", data: { "uk-confirm" => "Add to queue?" } do %>
                 <i class="fa fa-plus uk-margin-small-right"></i> Add to Queue
               <% end %>

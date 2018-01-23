@@ -22,7 +22,7 @@ class AdminController < ApplicationController
 
   def start_party
     playlist_id = params[:playlist_uri].scan(/[^:]*$/)[0]
-    Rails.cache.delete("spotify_playlist_id")
+    Rails.cache.delete("spotify_queue_index")
     Rails.cache.write("spotify_playlist_id", playlist_id)
 
     flash[:success] = "Party Started!!"
