@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: redirect("/songs")
   scope "/admin" do
     get "/", to: "admin#index", as: :admin
     get :login, to: "admin#login", as: :admin_login

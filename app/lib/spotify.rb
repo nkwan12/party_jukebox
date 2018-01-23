@@ -34,24 +34,24 @@ module Spotify
   end
 
   def self.authorize(auth_code = nil)
-    creds = Base64.encode64("#{client_id}:#{client_secret}").gsub("\n", "")
+    creds = Base64.strict_encode64("#{client_id}:#{client_secret}")
     if !auth_code && refresh_token
       puts "Reauthorizing from refresh token."
       headers = {
-        "Authorization" => "Bearer #{creds}"
+        "Authorization" => "Basic #{creds}"
       }
       body = {
         grant_type: "refresh_token",
         refresh_token: refresh_token
       }
     elsif auth_code
-      headers = {}
+      headers = {
+        "Authorization" => "Basic #{creds}"
+      }
       body = {
         code: auth_code,
         redirect_uri: redirect_uri,
-        grant_type: "authorization_code",
-        client_id: client_id,
-        client_secret: client_secret
+        grant_type: "authorization_code"
       }
     else
       raise AuthenticationError, "Must have either code or refresh token."

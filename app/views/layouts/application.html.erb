@@ -3,8 +3,8 @@
   <head>
     <title>Party Jukebox</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -17,8 +17,8 @@
           <% end %>
           <div class="uk-navbar-item uk-width-5-6">
             <%= form_tag songs_search_path, method: :get, class: "uk-search uk-search-default uk-width-1-1" do %>
-              <a type="submit" href="" class="uk-search-icon-flip" uk-search-icon></a>
-              <input class="uk-search-input" type="search" name="query" placeholder="Search...">
+              <button type="submit" href="" class="uk-search-icon-flip" uk-search-icon></button>
+              <input class="uk-search-input songs-search" type="search" name="query" placeholder="Search...">
             <% end %>
           </div><!-- .uk-navbar-item -->
         </div>
