@@ -24,6 +24,14 @@
         </div>
       </nav>
     </div>
+    <div class="uk-container">
+      <% if flash[:success] %>
+        <div class="uk-alert-success uk-margin-top uk-margin-bottom" uk-alert>
+          <a class="uk-alert-close" uk-close></a>
+          <p><%= flash[:success] %></p>
+        </div>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>

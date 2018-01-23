@@ -18,6 +18,7 @@ class SongsController < ApplicationController
     end
 
     flash[:success] = "#{params[:track_name]} added to queue!"
+    redirect_to songs_search_path(query: params[:query])
   end
 
   private
