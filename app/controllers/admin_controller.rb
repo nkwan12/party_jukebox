@@ -11,13 +11,18 @@ class AdminController < ApplicationController
   end
 
   def callback
-    Spotify.authorize(params[:code])
+    res = Spotify.authorize(params[:code])
 
-    redirect_to admin_path
+    if res.code != 200
+      head res.body
+    else
+      redirect_to admin_path
+    end
   end
 
   def start_party
     playlist_id = params[:playlist_uri].scan(/[^:]*$/)[0]
+    Rails.cache.delete("spotify_playlist_id")
     Rails.cache.write("spotify_playlist_id", playlist_id)
 
     flash[:success] = "Party Started!!"
