@@ -6,6 +6,7 @@ class SongsController < ApplicationController
   end
 
   def inactive
+    render :inactive, layout: :blank
   end
 
   def search
