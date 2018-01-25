@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get :login, to: "admin#login", as: :admin_login
     get :callback, to: "admin#callback", as: :admin_callback
     post :start_party, to: "admin#start_party", as: :start_party
+    get :end_party, to: "admin#end_party", as: :end_party
   end
   scope "/songs" do
     get "/", to: "songs#index", as: :songs
