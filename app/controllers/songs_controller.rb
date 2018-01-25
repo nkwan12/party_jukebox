@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  before_action :check_active, only: [:show]
+  before_action :check_active, only: [:index]
   before_action :set_currents, except: [:search]
 
   def index
