@@ -1,4 +1,5 @@
 class AdminController < ApplicationController
+  before_action :require_token
 
   def index
     redirect_to admin_login_path and return if !Spotify.authorized?
@@ -27,5 +28,14 @@ class AdminController < ApplicationController
 
     flash[:success] = "Party Started!!"
     redirect_to admin_path
+  end
+
+  def end_party
+    Rails.cache.delete("spotify_queue_index")
+    Rails.cache.delete("spotify_playlist_id")
+    Rails.cache.delete("spotify_access_token")
+    Rails.cache.delete("spotify_refresh_token")
+
+    flash[:success] = "Party Ended :("
   end
 end
