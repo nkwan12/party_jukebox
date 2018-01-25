@@ -2,6 +2,10 @@ class SongsController < ApplicationController
   before_action :set_currents, except: [:search]
 
   def index
+    redirect_to :songs_inactive and return unless Spotify.authorized?
+  end
+
+  def inactive
   end
 
   def search

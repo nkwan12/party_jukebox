@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     get "/", to: "songs#index", as: :songs
     get :search, to: "songs#search", as: :songs_search
     post :enqueue, to: "songs#enqueue", as: :songs_enqueue
+    get :inactive, to: "songs#inactive", as: :songs_inactive
   end
 end
