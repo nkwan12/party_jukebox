@@ -1,7 +1,7 @@
 module Spotify
   mattr_accessor :api_base, :redirect_uri, :client_id, :client_secret, :scope
   @@api_base = "https://api.spotify.com/v1/"
-  @@redirect_uri = "http://localhost:3000/admin/callback"
+  @@redirect_uri = ENV["spotify_redirect_uri"]
   @@client_id =  ENV["spotify_client_id"]
   @@client_secret = ENV["spotify_client_secret"]
   @@scope = "playlist-read-private playlist-modify-private user-read-currently-playing " \
