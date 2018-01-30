@@ -43,8 +43,8 @@ class SongsController < ApplicationController
     @current_index = @tracks.index { |track| @current_track["id"] == track["id"] } || -1
     @queue_index = Rails.cache.read("spotify_queue_index")
     puts "QUEUE INDEX INITIAL: #{ @queue_index }"
-    if @queue_index.nil? || @queue_index <= @current_index
-      @queue_index = @current_index + 1
+    if @queue_index.nil? || @queue_index <= @current_index + 1
+      @queue_index = @current_index + 2
     end
     @queue_index += 1 if @queue_index == @current_index + 1 &&
       @current_track["duration_ms"] - @player["progress_ms"] < 5000
