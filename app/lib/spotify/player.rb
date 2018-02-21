@@ -6,7 +6,7 @@ module Spotify
 
     def self.toggle_shuffle(state)
       request("me/player/shuffle", method: :put, opts: {
-        body: { state: state }.to_json,
+        query: { state: state }.to_query,
         headers: { "Accept" => "application/json" }
       })
     end
