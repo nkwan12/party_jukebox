@@ -24,8 +24,11 @@ class AdminController < ApplicationController
   def start_party
     playlist_id = params[:playlist_uri].scan(/[^:]*$/)[0]
     tracks = Spotify::Playlist.get_tracks(playlist_id)
+    logger.info "Tracks: ", tracks
     tracks = tracks.shuffle.map { |t| t["uri"] }
     playlist = Spotify::Playlist.create(name: "Jukebox #{DateTime.current.strftime("%Y%m%d%H%M")}", public: false)
+    logger.info "Playlist: ", playlist
+    logger.info "Tracks: ", tracks
     Spotify::Playlist.add(playlist["id"], tracks, 0, false)
     Rails.cache.delete("spotify_queue_index")
     Rails.cache.write("spotify_playlist_id", playlist["id"])
