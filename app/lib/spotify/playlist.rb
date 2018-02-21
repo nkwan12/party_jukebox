@@ -2,7 +2,7 @@ module Spotify
   class Playlist < SpotifyObject
     def self.create(body = {})
       opts = {
-        body: body,
+        body: body.to_json,
         headers: { "Accept" => "application/json" }
       }
       request("users/nkwan12/playlists", method: :post, opts: opts)
