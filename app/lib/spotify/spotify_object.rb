@@ -18,7 +18,7 @@ module Spotify
       puts "PARSED RESPONSE: #{ response.parsed_response }"
       puts "RESPONSE CODE: #{ response.code }"
       puts "SPOTIFY RESPONSE BODY: #{ response.body }"
-      return JSON.parse(response.body)
+      return response.body && JSON.parse(response.body)
     end
 
     private
