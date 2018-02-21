@@ -4,7 +4,14 @@ module Spotify
       request("me/player")
     end
 
-    def self.play(context = nil)
+    def self.toggle_shuffle(state)
+      request("me/player/shuffle", method: :put, opts: {
+        body: { state: state }.to_json,
+        headers: { "Accept" => "application/json" }
+      })
+    end
+
+    def self.play(context = nil, index = 0)
       body = {}
       body[:context_uri] = context if context
       request("me/player/play", method: :put, opts: {
