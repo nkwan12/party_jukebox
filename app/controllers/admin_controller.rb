@@ -32,6 +32,7 @@ class AdminController < ApplicationController
     Spotify::Playlist.add(playlist["id"], tracks, 0, false)
     Rails.cache.delete("spotify_queue_index")
     Rails.cache.write("spotify_playlist_id", playlist["id"])
+    Spotify::Player.play(playlist["uri"])
 
     flash[:success] = "Party Started!!"
     redirect_to admin_path
